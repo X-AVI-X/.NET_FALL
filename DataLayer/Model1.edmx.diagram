@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e0c20e07ba624142913eea45051a134a" Name="Diagram1">
+        <EntityTypeShape EntityType="NewsPortalModel.New_info" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="NewsPortalModel.Reacts_info" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NewsPortalModel.Report_info" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NewsPortalModel.User_info" Width="1.5" PointX="5.5" PointY="2.875" IsExpanded="true" />
+        <AssociationConnector Association="NewsPortalModel.FK_New_info_New_info" ManuallyRouted="false" />
+        <AssociationConnector Association="NewsPortalModel.FK_New_info_Report_info" ManuallyRouted="false" />
+        <AssociationConnector Association="NewsPortalModel.FK_User_info_Report_info" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

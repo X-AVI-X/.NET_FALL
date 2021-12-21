@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="NewsPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="New_info">
+          <Key>
+            <PropertyRef Name="CatID" />
+          </Key>
+          <Property Name="CatID" Type="int" Nullable="false" />
+          <Property Name="NewsCat" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reacts_info">
+          <Key>
+            <PropertyRef Name="NewsID" />
+          </Key>
+          <Property Name="NewsID" Type="int" Nullable="false" />
+          <Property Name="Comments" Type="text" />
+          <Property Name="React" Type="text" />
+        </EntityType>
+        <EntityType Name="Report_info">
+          <Key>
+            <PropertyRef Name="NewsID" />
+          </Key>
+          <Property Name="RepoID" Type="int" Nullable="false" />
+          <Property Name="NewsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RepoDate" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RepoTime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RepoCat" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="News" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_info">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="text" />
+          <Property Name="Reacts" Type="text" />
+          <Property Name="NewsID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_New_info_New_info">
+          <End Role="New_info" Type="Self.New_info" Multiplicity="1" />
+          <End Role="New_info1" Type="Self.New_info" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="New_info">
+              <PropertyRef Name="CatID" />
+            </Principal>
+            <Dependent Role="New_info1">
+              <PropertyRef Name="CatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_New_info_Report_info">
+          <End Role="Report_info" Type="Self.Report_info" Multiplicity="1" />
+          <End Role="New_info" Type="Self.New_info" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Report_info">
+              <PropertyRef Name="NewsID" />
+            </Principal>
+            <Dependent Role="New_info">
+              <PropertyRef Name="CatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_info_Report_info">
+          <End Role="Report_info" Type="Self.Report_info" Multiplicity="1" />
+          <End Role="User_info" Type="Self.User_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Report_info">
+              <PropertyRef Name="NewsID" />
+            </Principal>
+            <Dependent Role="User_info">
+              <PropertyRef Name="NewsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NewsPortalModelStoreContainer">
+          <EntitySet Name="New_info" EntityType="Self.New_info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reacts_info" EntityType="Self.Reacts_info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Report_info" EntityType="Self.Report_info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_info" EntityType="Self.User_info" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_New_info_New_info" Association="Self.FK_New_info_New_info">
+            <End Role="New_info" EntitySet="New_info" />
+            <End Role="New_info1" EntitySet="New_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_New_info_Report_info" Association="Self.FK_New_info_Report_info">
+            <End Role="Report_info" EntitySet="Report_info" />
+            <End Role="New_info" EntitySet="New_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_info_Report_info" Association="Self.FK_User_info_Report_info">
+            <End Role="Report_info" EntitySet="Report_info" />
+            <End Role="User_info" EntitySet="User_info" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NewsPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="New_info">
+          <Key>
+            <PropertyRef Name="CatID" />
+          </Key>
+          <Property Name="CatID" Type="Int32" Nullable="false" />
+          <Property Name="NewsCat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="New_info1" Relationship="Self.FK_New_info_New_info" FromRole="New_info" ToRole="New_info1" />
+          <NavigationProperty Name="New_info2" Relationship="Self.FK_New_info_New_info" FromRole="New_info1" ToRole="New_info" />
+          <NavigationProperty Name="Report_info" Relationship="Self.FK_New_info_Report_info" FromRole="New_info" ToRole="Report_info" />
+        </EntityType>
+        <EntityType Name="Reacts_info">
+          <Key>
+            <PropertyRef Name="NewsID" />
+          </Key>
+          <Property Name="NewsID" Type="Int32" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="React" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Report_info">
+          <Key>
+            <PropertyRef Name="NewsID" />
+          </Key>
+          <Property Name="RepoID" Type="Int32" Nullable="false" />
+          <Property Name="NewsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RepoDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RepoTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RepoCat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="News" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="New_info" Relationship="Self.FK_New_info_Report_info" FromRole="Report_info" ToRole="New_info" />
+          <NavigationProperty Name="User_info" Relationship="Self.FK_User_info_Report_info" FromRole="Report_info" ToRole="User_info" />
+        </EntityType>
+        <EntityType Name="User_info">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Reacts" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NewsID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Report_info" Relationship="Self.FK_User_info_Report_info" FromRole="User_info" ToRole="Report_info" />
+        </EntityType>
+        <Association Name="FK_New_info_New_info">
+          <End Role="New_info" Type="Self.New_info" Multiplicity="1" />
+          <End Role="New_info1" Type="Self.New_info" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="New_info">
+              <PropertyRef Name="CatID" />
+            </Principal>
+            <Dependent Role="New_info1">
+              <PropertyRef Name="CatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_New_info_Report_info">
+          <End Role="Report_info" Type="Self.Report_info" Multiplicity="1" />
+          <End Role="New_info" Type="Self.New_info" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Report_info">
+              <PropertyRef Name="NewsID" />
+            </Principal>
+            <Dependent Role="New_info">
+              <PropertyRef Name="CatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_info_Report_info">
+          <End Role="Report_info" Type="Self.Report_info" Multiplicity="1" />
+          <End Role="User_info" Type="Self.User_info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Report_info">
+              <PropertyRef Name="NewsID" />
+            </Principal>
+            <Dependent Role="User_info">
+              <PropertyRef Name="NewsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NewsPortalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="New_info" EntityType="Self.New_info" />
+          <EntitySet Name="Reacts_info" EntityType="Self.Reacts_info" />
+          <EntitySet Name="Report_info" EntityType="Self.Report_info" />
+          <EntitySet Name="User_info" EntityType="Self.User_info" />
+          <AssociationSet Name="FK_New_info_New_info" Association="Self.FK_New_info_New_info">
+            <End Role="New_info" EntitySet="New_info" />
+            <End Role="New_info1" EntitySet="New_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_New_info_Report_info" Association="Self.FK_New_info_Report_info">
+            <End Role="Report_info" EntitySet="Report_info" />
+            <End Role="New_info" EntitySet="New_info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_info_Report_info" Association="Self.FK_User_info_Report_info">
+            <End Role="Report_info" EntitySet="Report_info" />
+            <End Role="User_info" EntitySet="User_info" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NewsPortalModelStoreContainer" CdmEntityContainer="NewsPortalEntities">
+          <EntitySetMapping Name="New_info">
+            <EntityTypeMapping TypeName="NewsPortalModel.New_info">
+              <MappingFragment StoreEntitySet="New_info">
+                <ScalarProperty Name="CatID" ColumnName="CatID" />
+                <ScalarProperty Name="NewsCat" ColumnName="NewsCat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reacts_info">
+            <EntityTypeMapping TypeName="NewsPortalModel.Reacts_info">
+              <MappingFragment StoreEntitySet="Reacts_info">
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="React" ColumnName="React" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Report_info">
+            <EntityTypeMapping TypeName="NewsPortalModel.Report_info">
+              <MappingFragment StoreEntitySet="Report_info">
+                <ScalarProperty Name="RepoID" ColumnName="RepoID" />
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+                <ScalarProperty Name="RepoDate" ColumnName="RepoDate" />
+                <ScalarProperty Name="RepoTime" ColumnName="RepoTime" />
+                <ScalarProperty Name="RepoCat" ColumnName="RepoCat" />
+                <ScalarProperty Name="News" ColumnName="News" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_info">
+            <EntityTypeMapping TypeName="NewsPortalModel.User_info">
+              <MappingFragment StoreEntitySet="User_info">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Reacts" ColumnName="Reacts" />
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="NewsPortalModelStoreContainer" CdmEntityContainer="NewsPortalEntities">
+    <EntitySetMapping Name="New_info">
+      <EntityTypeMapping TypeName="NewsPortalModel.New_info">
+        <MappingFragment StoreEntitySet="New_info">
+          <ScalarProperty Name="CatID" ColumnName="CatID" />
+          <ScalarProperty Name="NewsCat" ColumnName="NewsCat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reacts_info">
+      <EntityTypeMapping TypeName="NewsPortalModel.Reacts_info">
+        <MappingFragment StoreEntitySet="Reacts_info">
+          <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="React" ColumnName="React" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Report_info">
+      <EntityTypeMapping TypeName="NewsPortalModel.Report_info">
+        <MappingFragment StoreEntitySet="Report_info">
+          <ScalarProperty Name="RepoID" ColumnName="RepoID" />
+          <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+          <ScalarProperty Name="RepoDate" ColumnName="RepoDate" />
+          <ScalarProperty Name="RepoTime" ColumnName="RepoTime" />
+          <ScalarProperty Name="RepoCat" ColumnName="RepoCat" />
+          <ScalarProperty Name="News" ColumnName="News" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User_info">
+      <EntityTypeMapping TypeName="NewsPortalModel.User_info">
+        <MappingFragment StoreEntitySet="User_info">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Reacts" ColumnName="Reacts" />
+          <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

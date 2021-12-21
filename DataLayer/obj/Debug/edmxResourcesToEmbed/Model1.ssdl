@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NewsPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="New_info">
+    <Key>
+      <PropertyRef Name="CatID" />
+    </Key>
+    <Property Name="CatID" Type="int" Nullable="false" />
+    <Property Name="NewsCat" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reacts_info">
+    <Key>
+      <PropertyRef Name="NewsID" />
+    </Key>
+    <Property Name="NewsID" Type="int" Nullable="false" />
+    <Property Name="Comments" Type="text" />
+    <Property Name="React" Type="text" />
+  </EntityType>
+  <EntityType Name="Report_info">
+    <Key>
+      <PropertyRef Name="NewsID" />
+    </Key>
+    <Property Name="RepoID" Type="int" Nullable="false" />
+    <Property Name="NewsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RepoDate" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RepoTime" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RepoCat" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="News" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User_info">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Comment" Type="text" />
+    <Property Name="Reacts" Type="text" />
+    <Property Name="NewsID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_New_info_New_info">
+    <End Role="New_info" Type="Self.New_info" Multiplicity="1" />
+    <End Role="New_info1" Type="Self.New_info" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="New_info">
+        <PropertyRef Name="CatID" />
+      </Principal>
+      <Dependent Role="New_info1">
+        <PropertyRef Name="CatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_New_info_Report_info">
+    <End Role="Report_info" Type="Self.Report_info" Multiplicity="1" />
+    <End Role="New_info" Type="Self.New_info" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Report_info">
+        <PropertyRef Name="NewsID" />
+      </Principal>
+      <Dependent Role="New_info">
+        <PropertyRef Name="CatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_info_Report_info">
+    <End Role="Report_info" Type="Self.Report_info" Multiplicity="1" />
+    <End Role="User_info" Type="Self.User_info" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Report_info">
+        <PropertyRef Name="NewsID" />
+      </Principal>
+      <Dependent Role="User_info">
+        <PropertyRef Name="NewsID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NewsPortalModelStoreContainer">
+    <EntitySet Name="New_info" EntityType="Self.New_info" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reacts_info" EntityType="Self.Reacts_info" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Report_info" EntityType="Self.Report_info" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User_info" EntityType="Self.User_info" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_New_info_New_info" Association="Self.FK_New_info_New_info">
+      <End Role="New_info" EntitySet="New_info" />
+      <End Role="New_info1" EntitySet="New_info" />
+    </AssociationSet>
+    <AssociationSet Name="FK_New_info_Report_info" Association="Self.FK_New_info_Report_info">
+      <End Role="Report_info" EntitySet="Report_info" />
+      <End Role="New_info" EntitySet="New_info" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_info_Report_info" Association="Self.FK_User_info_Report_info">
+      <End Role="Report_info" EntitySet="Report_info" />
+      <End Role="User_info" EntitySet="User_info" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
